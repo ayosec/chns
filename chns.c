@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <sched.h>
 #include <stdio.h>
+#include <string.h>
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -45,6 +46,7 @@ void setroot(char* pid) {
   char rootpath[256];
   char link[1024];
 
+  memset(link, 0, sizeof(link));
   snprintf(rootpath, sizeof(rootpath), "/proc/%s/root", pid);
   if(readlink(rootpath, link, sizeof(link)) > 0) {
     if(chroot(link) != 0)
